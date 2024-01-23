@@ -19,13 +19,9 @@ import org.springframework.stereotype.Service;
 
 
     public ScheduleResponseDto createSchedule(ScheduleRequestDto requestDto) {
-        //RequestDto -> Entity
+
         Schedule schedule = new Schedule(requestDto);
-
-        // DB 저장
-        Schedule saveSchdule = scheduleRepository.save(schedule);
-
-        //Entity -> ResponseDto
+        scheduleRepository.save(schedule);
         ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
 
         return scheduleResponseDto;
@@ -38,23 +34,31 @@ import org.springframework.stereotype.Service;
 
     }
     public Schedule selectSchedule(Long id) {
-        return scheduleRepository.findById(id).orElseThrow(() ->
-            new IllegalArgumentException("선택한 메모는 존재하지 않습니다.")
-        );
-
+        return findSchedule(id);
     }
     @Transactional
-    public Long updateSchedule(Long id, ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto updateSchedule(Long id, String password, ScheduleRequestDto requestDto) {
         Schedule schedule = findSchedule(id);
+        // 입력한 비밀번호와 저장된 비밀번호가 일치하는지 확인
+        if (!password.equals(schedule.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
         schedule.update(requestDto);
-        return id;
+        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
+        return scheduleResponseDto;
     }
 
-    public  Long deleteSchedule(Long id) {
+    public  Long deleteSchedule(Long id, String password) {
         Schedule schedule = findSchedule(id);
+        // 입력한 비밀번호와 저장된 비밀번호가 일치하는지 확인
+        if (!password.equals(schedule.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
         scheduleRepository.delete(schedule);
         return id;
     }
+
+
 
 
     private Schedule findSchedule(Long id) {

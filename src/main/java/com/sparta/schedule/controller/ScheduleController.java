@@ -39,15 +39,15 @@ public class ScheduleController{
     public Schedule selectSchedule(@PathVariable Long id) {
         return scheduleService.selectSchedule(id);
     }
-    @PutMapping("/schedules/{id}")  //선택한 일정 수정
-    public Long updateSchedule(@PathVariable Long id,@RequestBody ScheduleRequestDto requestDto){
-        return scheduleService.updateSchedule(id,requestDto);
+    @PutMapping("/schedule/{id}")  //선택한 일정 수정
+    public ScheduleResponseDto updateSchedule(@PathVariable Long id,@RequestParam String password,@RequestBody ScheduleRequestDto requestDto){
+        return scheduleService.updateSchedule(id,password, requestDto);
 
     }
 
     @DeleteMapping("/schedule/{id}")    //선택한 일정 삭제
-    public Long deleteSchedule(@PathVariable Long id,@RequestBody ScheduleRequestDto requestDto){
-       return scheduleService.deleteSchedule(id);
+    public Long deleteSchedule(@PathVariable Long id,@RequestParam String password){
+       return scheduleService.deleteSchedule(id,password);
     }
 
 
