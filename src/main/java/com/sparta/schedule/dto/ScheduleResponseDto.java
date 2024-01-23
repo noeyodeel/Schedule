@@ -1,6 +1,7 @@
 package com.sparta.schedule.dto;
 
 import com.sparta.schedule.entity.Schedule;
+import java.sql.Time;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
@@ -10,7 +11,7 @@ public class ScheduleResponseDto {
     private String title;
     private String contents;
     private String author;
-    private LocalDateTime crateddAt;
+    private LocalDateTime createddAt;
     private LocalDateTime modifiedAt;
 
     public ScheduleResponseDto(Schedule schedule) {
@@ -18,7 +19,11 @@ public class ScheduleResponseDto {
         this.title = schedule.getTitle();
         this.contents = schedule.getContents();
         this.author = schedule.getAuthor();
-        this.crateddAt = schedule.getCreatedAt();
+        this.createddAt = schedule.getCreatedAt();
         this.modifiedAt = schedule.getModifiedAt();
     }
+
+
+
+
 }
