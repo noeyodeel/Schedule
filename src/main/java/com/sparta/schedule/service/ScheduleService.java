@@ -39,10 +39,7 @@ import org.springframework.stereotype.Service;
     @Transactional
     public ScheduleResponseDto updateSchedule(Long id, String password, ScheduleRequestDto requestDto) {
         Schedule schedule = findSchedule(id);
-        // 입력한 비밀번호와 저장된 비밀번호가 일치하는지 확인
-        if (!password.equals(schedule.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
+        validatePassword(id,password);
         schedule.update(requestDto);
         ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
         return scheduleResponseDto;
@@ -50,15 +47,19 @@ import org.springframework.stereotype.Service;
 
     public  Long deleteSchedule(Long id, String password) {
         Schedule schedule = findSchedule(id);
-        // 입력한 비밀번호와 저장된 비밀번호가 일치하는지 확인
-        if (!password.equals(schedule.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
+        validatePassword(id,password);
         scheduleRepository.delete(schedule);
         return id;
     }
 
 
+    private void validatePassword(Long id, String password) {
+        Schedule schedule = findSchedule(id);
+
+        if (!password.equals(schedule.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+    }
 
 
     private Schedule findSchedule(Long id) {
