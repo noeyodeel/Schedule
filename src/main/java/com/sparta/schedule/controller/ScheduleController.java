@@ -36,7 +36,7 @@ public class ScheduleController{
         return scheduleService.getSchedules();
     }
     @GetMapping("/schedules/{id}")  //선택한 일정 보여주기
-    public Schedule selectSchedule(@PathVariable Long id) {
+    public ScheduleResponseDto selectSchedule(@PathVariable Long id) {
         return scheduleService.selectSchedule(id);
     }
     @PutMapping("/schedule/{id}")  //선택한 일정 수정

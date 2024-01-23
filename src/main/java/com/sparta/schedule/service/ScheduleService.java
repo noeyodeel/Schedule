@@ -31,10 +31,12 @@ import org.springframework.stereotype.Service;
     public List<ScheduleResponseDto> getSchedules() {
 
         return scheduleRepository.findAllByOrderByModifiedAtDesc().stream().map(ScheduleResponseDto::new).toList();
-
     }
-    public Schedule selectSchedule(Long id) {
-        return findSchedule(id);
+    public ScheduleResponseDto selectSchedule(Long id) {
+        Schedule schedule = findSchedule(id);
+        ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
+
+        return scheduleResponseDto;
     }
     @Transactional
     public ScheduleResponseDto updateSchedule(Long id, String password, ScheduleRequestDto requestDto) {
