@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
- public class ScheduleService {
+public class ScheduleService {
+
     private ScheduleRepository scheduleRepository;
+
     @Autowired
     public ScheduleService(ScheduleRepository scheduleRepository) {
         this.scheduleRepository = scheduleRepository;
@@ -30,26 +32,30 @@ import org.springframework.stereotype.Service;
 
     public List<ScheduleResponseDto> getSchedules() {
 
-        return scheduleRepository.findAllByOrderByModifiedAtDesc().stream().map(ScheduleResponseDto::new).toList();
+        return scheduleRepository.findAllByOrderByModifiedAtDesc().stream()
+            .map(ScheduleResponseDto::new).toList();
     }
+
     public ScheduleResponseDto selectSchedule(Long id) {
         Schedule schedule = findSchedule(id);
         ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
 
         return scheduleResponseDto;
     }
+
     @Transactional
-    public ScheduleResponseDto updateSchedule(Long id, String password, ScheduleRequestDto requestDto) {
+    public ScheduleResponseDto updateSchedule(Long id, String password,
+        ScheduleRequestDto requestDto) {
         Schedule schedule = findSchedule(id);
-        validatePassword(id,password);
+        validatePassword(id, password);
         schedule.update(requestDto);
         ScheduleResponseDto scheduleResponseDto = new ScheduleResponseDto(schedule);
         return scheduleResponseDto;
     }
 
-    public  Long deleteSchedule(Long id, String password) {
+    public Long deleteSchedule(Long id, String password) {
         Schedule schedule = findSchedule(id);
-        validatePassword(id,password);
+        validatePassword(id, password);
         scheduleRepository.delete(schedule);
         return id;
     }

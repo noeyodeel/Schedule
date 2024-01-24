@@ -1,12 +1,12 @@
 package com.sparta.schedule.dto;
 
 import com.sparta.schedule.entity.Schedule;
-import java.sql.Time;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
 @Getter
 public class ScheduleResponseDto {
+
     private long id;
     private String title;
     private String contents;
@@ -22,8 +22,6 @@ public class ScheduleResponseDto {
         this.createddAt = schedule.getCreatedAt();
         this.modifiedAt = schedule.getModifiedAt();
     }
-
-
 
 
 }
