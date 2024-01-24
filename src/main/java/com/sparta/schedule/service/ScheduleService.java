@@ -27,7 +27,8 @@ public class ScheduleService {
         Schedule schedule = new Schedule(requestDto);
         scheduleRepository.save(schedule);
 
-        return new ResponseMessageDto(HttpStatus.OK, "일정이 등록되었습니다.", new ScheduleResponseDto(schedule));
+        return new ResponseMessageDto(HttpStatus.OK, "일정이 등록되었습니다.",
+            new ScheduleResponseDto(schedule));
     }
 
 
@@ -41,20 +42,23 @@ public class ScheduleService {
         try {
             Schedule schedule = findSchedule(id);
 
-            return new ResponseMessageDto(HttpStatus.OK, "선택한 일정입니다.", new ScheduleResponseDto(schedule));
-        }catch (IllegalArgumentException e){
+            return new ResponseMessageDto(HttpStatus.OK, "선택한 일정입니다.",
+                new ScheduleResponseDto(schedule));
+        } catch (IllegalArgumentException e) {
             return new ResponseMessageDto(HttpStatus.BAD_REQUEST, e.getMessage(), null);
         }
     }
 
     @Transactional
-    public ResponseMessageDto updateSchedule(Long id, String password, ScheduleRequestDto requestDto) {
+    public ResponseMessageDto updateSchedule(Long id, String password,
+        ScheduleRequestDto requestDto) {
         try {
             Schedule schedule = findSchedule(id);
             validatePassword(id, password);
             schedule.update(requestDto);
-            return new ResponseMessageDto(HttpStatus.OK, "일정이 수정되었습니다.", new ScheduleResponseDto(schedule));
-        }catch (IllegalArgumentException e){
+            return new ResponseMessageDto(HttpStatus.OK, "일정이 수정되었습니다.",
+                new ScheduleResponseDto(schedule));
+        } catch (IllegalArgumentException e) {
             return new ResponseMessageDto(HttpStatus.BAD_REQUEST, e.getMessage(), null);
         }
     }
@@ -64,7 +68,8 @@ public class ScheduleService {
             Schedule schedule = findSchedule(id);
             validatePassword(id, password);
             scheduleRepository.delete(schedule);
-            return new ResponseMessageDto(HttpStatus.OK, "일정이 삭제되었습니다.", new ScheduleResponseDto(schedule));
+            return new ResponseMessageDto(HttpStatus.OK, "일정이 삭제되었습니다.",
+                new ScheduleResponseDto(schedule));
         } catch (IllegalArgumentException e) {
             return new ResponseMessageDto(HttpStatus.BAD_REQUEST, e.getMessage(), null);
         }
