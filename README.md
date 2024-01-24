@@ -2,8 +2,12 @@
 
 <img src="https://github.com/noeyodeel/Schedule/assets/103111681/503f9ce2-1c74-43bf-8b9a-c2e79524ef60" width="600" height="500"/>
 
+---
+
 # api 
-<img src="https://github.com/noeyodeel/Schedule/assets/103111681/f0b7125f-722c-48cb-8fc1-912c4b790222" width="2000" height="400"/>
+https://www.notion.so/API-cc80a463cbfe4788814492fa437d9c45?pvs=12
+
+---
 
 # ERD
 
@@ -35,4 +39,5 @@
     - 선택한 일정을 삭제할 수 있습니다.
         - 서버에 일정 삭제를 요청할 때 `비밀번호`를 함께 전달합니다.
         - 선택한 일정의 `비밀번호`와 요청할 때 함께 보낸 `비밀번호`가 일치할 경우에만 삭제가 가능합니다.
-
+## 추가 구현 기능
+- [x] 선택한 일정 수정 및 삭제 요청 시 비밀번호가 일치하지 않을 경우 API 요청 실패(예외상황)에 대해 판단할 수 있는 Status Code, Error 메시지등의 정보를 반환합니다.
