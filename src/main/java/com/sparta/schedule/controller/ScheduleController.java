@@ -1,5 +1,6 @@
 package com.sparta.schedule.controller;
 
+import com.sparta.schedule.dto.ResponseMessageDto;
 import com.sparta.schedule.dto.ScheduleRequestDto;
 import com.sparta.schedule.dto.ScheduleResponseDto;
 import com.sparta.schedule.service.ScheduleService;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/schedules")
 public class ScheduleController {
 
     private ScheduleService scheduleService;
@@ -28,30 +29,30 @@ public class ScheduleController {
     }
 
 
-    @PostMapping("/schedule")   //일정 입력
-    public ScheduleResponseDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+    @PostMapping()   //일정 입력
+    public ResponseMessageDto createSchedule(@RequestBody ScheduleRequestDto requestDto) {
         return scheduleService.createSchedule(requestDto);
     }
 
-    @GetMapping("/schedules")   //일정 전체 다보여주기
+    @GetMapping()   //일정 전체 다보여주기
     public List<ScheduleResponseDto> getSchedule() {
         return scheduleService.getSchedules();
     }
 
-    @GetMapping("/schedules/{id}")  //선택한 일정 보여주기
-    public ScheduleResponseDto selectSchedule(@PathVariable Long id) {
+    @GetMapping("/{id}")  //선택한 일정 보여주기
+    public ResponseMessageDto selectSchedule(@PathVariable Long id) {
         return scheduleService.selectSchedule(id);
     }
 
-    @PutMapping("/schedule/{id}")  //선택한 일정 수정
-    public ScheduleResponseDto updateSchedule(@PathVariable Long id, @RequestParam String password,
+    @PutMapping("/{id}")  //선택한 일정 수정
+    public ResponseMessageDto updateSchedule(@PathVariable Long id, @RequestParam String password,
         @RequestBody ScheduleRequestDto requestDto) {
         return scheduleService.updateSchedule(id, password, requestDto);
 
     }
 
-    @DeleteMapping("/schedule/{id}")    //선택한 일정 삭제
-    public Long deleteSchedule(@PathVariable Long id, @RequestParam String password) {
+    @DeleteMapping("/{id}")    //선택한 일정 삭제
+    public ResponseMessageDto deleteSchedule(@PathVariable Long id, @RequestParam String password) {
         return scheduleService.deleteSchedule(id, password);
     }
 
